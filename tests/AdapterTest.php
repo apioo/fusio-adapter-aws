@@ -21,7 +21,7 @@
 
 namespace Fusio\Adapter\Amazon\Tests;
 
-use Fusio\Adapter\Google\Adapter;
+use Fusio\Adapter\Amazon\Adapter;
 use Fusio\Engine\Test\AdapterTestCase;
 
 /**
