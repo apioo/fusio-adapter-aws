@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "fusio/engine": "^1.0",
+    "fusio/engine": "^2.0",
     "aws/aws-sdk-php": "^3.36"
   },
   "require-dev": {
