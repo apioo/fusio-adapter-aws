@@ -55,7 +55,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
         if (!empty($key) && !empty($secret)) {
             $params['credentials'] = [
                 'key'    => $key,
-                'secret' => $key,
+                'secret' => $secret,
             ];
         }
 
