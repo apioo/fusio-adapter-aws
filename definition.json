@@ -4,5 +4,8 @@
     "Fusio\\Adapter\\Amazon\\Connection\\EC2",
     "Fusio\\Adapter\\Amazon\\Connection\\S3",
     "Fusio\\Adapter\\Amazon\\Connection\\SQS"
+  ],
+  "actionClass": [
+    "Fusio\\Adapter\\Amazon\\Action\\AmazonLambda"
   ]
 }
