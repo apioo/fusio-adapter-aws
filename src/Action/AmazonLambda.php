@@ -71,7 +71,7 @@ class AmazonLambda extends ActionAbstract
             return $this->response->build(
                 $result->get('StatusCode'),
                 [],
-                json_decode($result->get('Payload') ?: new \stdClass())
+                json_decode($result->get('Payload') ?: '{}')
             );
         } else {
             throw new ConfigurationException('Given connection must be a LambdaClient connection');
