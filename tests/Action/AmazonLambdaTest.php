@@ -24,14 +24,13 @@ namespace Fusio\Adapter\Amazon\Tests\Action;
 use Aws\Lambda\LambdaClient;
 use Aws\Result;
 use Fusio\Adapter\Amazon\Action\AmazonLambda;
-use Fusio\Adapter\Amazon\Connection\Lambda;
 use Fusio\Engine\Form\Builder;
 use Fusio\Engine\Form\Container;
 use Fusio\Engine\Form\Element;
 use Fusio\Engine\Model\Connection;
-use Fusio\Engine\ResponseInterface;
 use Fusio\Engine\Test\CallbackConnection;
 use Fusio\Engine\Test\EngineTestCaseTrait;
+use PSX\Http\Environment\HttpResponseInterface;
 use PSX\Record\Record;
 
 /**
@@ -106,7 +105,7 @@ class AmazonLambdaTest extends \PHPUnit_Framework_TestCase
 }
 JSON;
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertInstanceOf(HttpResponseInterface::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals([], $response->getHeaders());
         $this->assertJsonStringEqualsJsonString($expect, $actual, $actual);
