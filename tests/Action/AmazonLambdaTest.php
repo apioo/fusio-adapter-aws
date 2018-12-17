@@ -30,6 +30,7 @@ use Fusio\Engine\Form\Element;
 use Fusio\Engine\Model\Connection;
 use Fusio\Engine\Test\CallbackConnection;
 use Fusio\Engine\Test\EngineTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 use PSX\Http\Environment\HttpResponseInterface;
 use PSX\Record\Record;
 
@@ -40,7 +41,7 @@ use PSX\Record\Record;
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class AmazonLambdaTest extends \PHPUnit_Framework_TestCase
+class AmazonLambdaTest extends TestCase
 {
     use EngineTestCaseTrait;
 
