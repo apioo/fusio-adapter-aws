@@ -22,6 +22,7 @@
 namespace Fusio\Adapter\Amazon\Action;
 
 use Aws\Lambda\LambdaClient;
+use Aws\Sdk;
 use Fusio\Engine\ActionAbstract;
 use Fusio\Engine\ContextInterface;
 use Fusio\Engine\Exception\ConfigurationException;
@@ -46,9 +47,11 @@ class AmazonLambda extends ActionAbstract
 
     public function handle(RequestInterface $request, ParametersInterface $configuration, ContextInterface $context)
     {
-        $client = $this->connector->getConnection($configuration->get('connection'));
+        $sdk = $this->connector->getConnection($configuration->get('connection'));
 
-        if ($client instanceof LambdaClient) {
+        if ($sdk instanceof Sdk) {
+            $client = $sdk->createLambda();
+
             $args = [
                 'FunctionName' => $configuration->get('function_name'),
                 'InvocationType' => $configuration->get('invocation_type') ?: 'RequestResponse',
@@ -74,7 +77,7 @@ class AmazonLambda extends ActionAbstract
                 json_decode($result->get('Payload') ?: '{}')
             );
         } else {
-            throw new ConfigurationException('Given connection must be a LambdaClient connection');
+            throw new ConfigurationException('Given connection must be an Amazon connection');
         }
     }
 
@@ -91,7 +94,7 @@ class AmazonLambda extends ActionAbstract
             'Tail' => 'Tail',
         ];
 
-        $builder->add($elementFactory->newConnection('connection', 'Connection', 'The Amazon-Lambda connection'));
+        $builder->add($elementFactory->newConnection('connection', 'Connection', 'The Amazon connection'));
         $builder->add($elementFactory->newInput('function_name', 'FunctionName', 'text', 'The Lambda function name.'));
         $builder->add($elementFactory->newSelect('invocation_type', 'Invocation-Type', $invocationTypes, 'By default, the Invoke API assumes "RequestResponse" invocation type. You can optionally request asynchronous execution by specifying "Event" as the InvocationType. You can also use this parameter to request AWS Lambda to not execute the function but do some verification, such as if the caller is authorized to invoke the function and if the inputs are valid. You request this by specifying "DryRun" as the InvocationType. This is useful in a cross-account scenario when you want to verify access to a function without running it.'));
         $builder->add($elementFactory->newSelect('log_type', 'Log-Type', $logTypes, 'You can set this optional parameter to "Tail" in the request only if you specify the InvocationType parameter with value "RequestResponse". In this case, AWS Lambda returns the base64-encoded last 4 KB of log data produced by your Lambda function in the x-amz-log-results header.'));
