@@ -1,9 +1,6 @@
 {
   "connectionClass": [
-    "Fusio\\Adapter\\Amazon\\Connection\\CloudWatch",
-    "Fusio\\Adapter\\Amazon\\Connection\\EC2",
-    "Fusio\\Adapter\\Amazon\\Connection\\S3",
-    "Fusio\\Adapter\\Amazon\\Connection\\SQS"
+    "Fusio\\Adapter\\Amazon\\Connection\\Amazon"
   ],
   "actionClass": [
     "Fusio\\Adapter\\Amazon\\Action\\AmazonLambda"
