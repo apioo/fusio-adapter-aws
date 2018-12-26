@@ -23,6 +23,7 @@ namespace Fusio\Adapter\Aws\Tests\Action;
 
 use Aws\Lambda\LambdaClient;
 use Aws\Result;
+use Aws\Sdk;
 use Fusio\Adapter\Aws\Action\AwsLambda;
 use Fusio\Engine\Form\Builder;
 use Fusio\Engine\Form\Container;
@@ -69,13 +70,21 @@ class AwsLambdaTest extends TestCase
             ->with($this->equalTo($args))
             ->will($this->returnValue($result));
 
+        $sdk = $this->getMockBuilder(Sdk::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $sdk->expects($this->once())
+            ->method('createLambda')
+            ->will($this->returnValue($client));
+
         $connection = new Connection();
         $connection->setId(1);
         $connection->setName('foo');
         $connection->setClass(CallbackConnection::class);
         $connection->setConfig([
-            'callback' => function() use ($client){
-                return $client;
+            'callback' => function() use ($sdk){
+                return $sdk;
             },
         ]);
 
