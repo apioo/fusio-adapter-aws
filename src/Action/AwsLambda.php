@@ -76,7 +76,7 @@ class AwsLambda extends ActionAbstract
                 json_decode($result->get('Payload') ?: '{}')
             );
         } else {
-            throw new ConfigurationException('Given connection must be an Amazon connection');
+            throw new ConfigurationException('Given connection must be an Aws connection');
         }
     }
 
