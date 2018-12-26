@@ -72,6 +72,7 @@ class AwsLambdaTest extends TestCase
 
         $sdk = $this->getMockBuilder(Sdk::class)
             ->disableOriginalConstructor()
+            ->setMethods(['createLambda'])
             ->getMock();
 
         $sdk->expects($this->once())
