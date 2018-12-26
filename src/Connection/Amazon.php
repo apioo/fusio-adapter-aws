@@ -21,29 +21,31 @@
 
 namespace Fusio\Adapter\Amazon\Connection;
 
+use Aws\Sdk;
 use Fusio\Engine\ConnectionInterface;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
 
 /**
- * ConnectionAbstract
+ * Amazon
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-abstract class ConnectionAbstract implements ConnectionInterface
+class Amazon implements ConnectionInterface
 {
-    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory)
+    public function getName()
     {
-        $builder->add($elementFactory->newInput('version', 'Version', 'The version of the webservice to utilize (e.g., 2006-03-01)'));
-        $builder->add($elementFactory->newInput('region', 'Region', 'Region to connect to. See http://docs.aws.amazon.com/general/latest/gr/rande.html for a list of available regions'));
-        $builder->add($elementFactory->newInput('key', 'Key', 'AWS access key ID'));
-        $builder->add($elementFactory->newInput('secret', 'Secret', 'AWS secret access key'));
+        return 'Amazon';
     }
 
-    protected function getParams(ParametersInterface $config)
+    /**
+     * @param ParametersInterface $config
+     * @return \Aws\Sdk
+     */
+    public function getConnection(ParametersInterface $config)
     {
         $params = [
             'version' => $config->get('version'),
@@ -59,6 +61,14 @@ abstract class ConnectionAbstract implements ConnectionInterface
             ];
         }
 
-        return $params;
+        return new Sdk($params);
+    }
+
+    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory)
+    {
+        $builder->add($elementFactory->newInput('version', 'Version', 'The version of the webservice to utilize (e.g., 2006-03-01)'));
+        $builder->add($elementFactory->newInput('region', 'Region', 'Region to connect to. See http://docs.aws.amazon.com/general/latest/gr/rande.html for a list of available regions'));
+        $builder->add($elementFactory->newInput('key', 'Key', 'AWS access key ID'));
+        $builder->add($elementFactory->newInput('secret', 'Secret', 'AWS secret access key'));
     }
 }
