@@ -21,7 +21,6 @@
 
 namespace Fusio\Adapter\Amazon\Action;
 
-use Aws\Lambda\LambdaClient;
 use Aws\Sdk;
 use Fusio\Engine\ActionAbstract;
 use Fusio\Engine\ContextInterface;
