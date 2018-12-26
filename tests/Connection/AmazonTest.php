@@ -21,8 +21,8 @@
 
 namespace Fusio\Adapter\Amazon\Tests\Connection;
 
-use Aws\CloudWatch\CloudWatchClient;
-use Fusio\Adapter\Amazon\Connection\CloudWatch;
+use Aws\Sdk;
+use Fusio\Adapter\Amazon\Connection\Amazon;
 use Fusio\Engine\Form\Builder;
 use Fusio\Engine\Form\Container;
 use Fusio\Engine\Form\Element\Input;
@@ -31,20 +31,20 @@ use Fusio\Engine\Test\EngineTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * CloudWatchTest
+ * AmazonTest
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class CloudWatchTest extends TestCase
+class AmazonTest extends TestCase
 {
     use EngineTestCaseTrait;
 
     public function testGetConnection()
     {
-        /** @var CloudWatch $connectionFactory */
-        $connectionFactory = $this->getConnectionFactory()->factory(CloudWatch::class);
+        /** @var Amazon $connectionFactory */
+        $connectionFactory = $this->getConnectionFactory()->factory(Amazon::class);
 
         $config = new Parameters([
             'version' => '2010-08-01',
@@ -53,12 +53,12 @@ class CloudWatchTest extends TestCase
 
         $connection = $connectionFactory->getConnection($config);
 
-        $this->assertInstanceOf(CloudWatchClient::class, $connection);
+        $this->assertInstanceOf(Sdk::class, $connection);
     }
 
     public function testConfigure()
     {
-        $connection = $this->getConnectionFactory()->factory(CloudWatch::class);
+        $connection = $this->getConnectionFactory()->factory(Amazon::class);
         $builder    = new Builder();
         $factory    = $this->getFormElementFactory();
 
