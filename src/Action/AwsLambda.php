@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Amazon\Action;
+namespace Fusio\Adapter\Aws\Action;
 
 use Aws\Sdk;
 use Fusio\Engine\ActionAbstract;
@@ -31,17 +31,17 @@ use Fusio\Engine\ParametersInterface;
 use Fusio\Engine\RequestInterface;
 
 /**
- * AmazonLambda
+ * AwsLambda
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class AmazonLambda extends ActionAbstract
+class AwsLambda extends ActionAbstract
 {
     public function getName()
     {
-        return 'Amazon-Lambda';
+        return 'Aws-Lambda';
     }
 
     public function handle(RequestInterface $request, ParametersInterface $configuration, ContextInterface $context)

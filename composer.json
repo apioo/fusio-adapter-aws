@@ -1,6 +1,6 @@
 {
-  "name": "fusio/adapter-amazon",
-  "description": "Provides connections to amazon services",
+  "name": "fusio/adapter-aws",
+  "description": "Provides connections to amazon web services",
   "homepage": "http://fusio-project.org",
   "keywords": ["fusio-adapter"],
   "license": "AGPL-3.0",
@@ -21,12 +21,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Fusio\\Adapter\\Amazon\\": "src/"
+      "Fusio\\Adapter\\Aws\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Fusio\\Adapter\\Amazon\\Tests\\": "tests/"
+      "Fusio\\Adapter\\Aws\\Tests\\": "tests/"
     }
   }
 }

@@ -19,11 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Amazon\Tests\Action;
+namespace Fusio\Adapter\Aws\Tests\Action;
 
 use Aws\Lambda\LambdaClient;
 use Aws\Result;
-use Fusio\Adapter\Amazon\Action\AmazonLambda;
+use Fusio\Adapter\Aws\Action\AwsLambda;
 use Fusio\Engine\Form\Builder;
 use Fusio\Engine\Form\Container;
 use Fusio\Engine\Form\Element;
@@ -35,13 +35,13 @@ use PSX\Http\Environment\HttpResponseInterface;
 use PSX\Record\Record;
 
 /**
- * AmazonLambdaTest
+ * AwsLambdaTest
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class AmazonLambdaTest extends TestCase
+class AwsLambdaTest extends TestCase
 {
     use EngineTestCaseTrait;
 
@@ -81,7 +81,7 @@ class AmazonLambdaTest extends TestCase
 
         $this->getConnectionRepository()->add($connection);
 
-        $action = $this->getActionFactory()->factory(AmazonLambda::class);
+        $action = $this->getActionFactory()->factory(AwsLambda::class);
 
         // handle request
         $response = $action->handle(
@@ -114,7 +114,7 @@ JSON;
 
     public function testGetForm()
     {
-        $action  = $this->getActionFactory()->factory(AmazonLambda::class);
+        $action  = $this->getActionFactory()->factory(AwsLambda::class);
         $builder = new Builder();
         $factory = $this->getFormElementFactory();
 

@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Amazon\Tests;
+namespace Fusio\Adapter\Aws\Tests;
 
-use Fusio\Adapter\Amazon\Adapter;
+use Fusio\Adapter\Aws\Adapter;
 use Fusio\Engine\Test\AdapterTestCase;
 
 /**

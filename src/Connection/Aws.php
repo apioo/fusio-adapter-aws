@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Amazon\Connection;
+namespace Fusio\Adapter\Aws\Connection;
 
 use Aws\Sdk;
 use Fusio\Engine\ConnectionInterface;
@@ -28,17 +28,17 @@ use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
 
 /**
- * Amazon
+ * Aws
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class Amazon implements ConnectionInterface
+class Aws implements ConnectionInterface
 {
     public function getName()
     {
-        return 'Amazon';
+        return 'Aws';
     }
 
     /**

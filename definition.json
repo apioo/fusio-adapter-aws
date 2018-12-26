@@ -1,8 +1,8 @@
 {
   "connectionClass": [
-    "Fusio\\Adapter\\Amazon\\Connection\\Amazon"
+    "Fusio\\Adapter\\Aws\\Connection\\Aws"
   ],
   "actionClass": [
-    "Fusio\\Adapter\\Amazon\\Action\\AmazonLambda"
+    "Fusio\\Adapter\\Aws\\Action\\AwsLambda"
   ]
 }

@@ -19,10 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Amazon\Tests\Connection;
+namespace Fusio\Adapter\Aws\Tests\Connection;
 
 use Aws\Sdk;
-use Fusio\Adapter\Amazon\Connection\Amazon;
+use Fusio\Adapter\Aws\Connection\Aws;
 use Fusio\Engine\Form\Builder;
 use Fusio\Engine\Form\Container;
 use Fusio\Engine\Form\Element\Input;
@@ -37,14 +37,14 @@ use PHPUnit\Framework\TestCase;
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class AmazonTest extends TestCase
+class AwsTest extends TestCase
 {
     use EngineTestCaseTrait;
 
     public function testGetConnection()
     {
-        /** @var Amazon $connectionFactory */
-        $connectionFactory = $this->getConnectionFactory()->factory(Amazon::class);
+        /** @var Aws $connectionFactory */
+        $connectionFactory = $this->getConnectionFactory()->factory(Aws::class);
 
         $config = new Parameters([
             'version' => '2010-08-01',
@@ -58,7 +58,7 @@ class AmazonTest extends TestCase
 
     public function testConfigure()
     {
-        $connection = $this->getConnectionFactory()->factory(Amazon::class);
+        $connection = $this->getConnectionFactory()->factory(Aws::class);
         $builder    = new Builder();
         $factory    = $this->getFormElementFactory();
 

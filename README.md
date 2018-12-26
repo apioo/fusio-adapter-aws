@@ -1,11 +1,11 @@
-Fusio-Adapter-Amazon
+Fusio-Adapter-Aws
 =====
 
-[Fusio] adapter which provides connections to communicate with amazon
+[Fusio] adapter which provides connections to communicate with amazon web
 services. You can install the adapter with the following steps inside your Fusio 
 project:
 
-    composer require fusio/adapter-amazon
-    php bin/fusio system:register Fusio\Adapter\Amazon\Adapter
+    composer require fusio/adapter-aws
+    php bin/fusio system:register Fusio\Adapter\Aws\Adapter
 
 [Fusio]: http://fusio-project.org/
