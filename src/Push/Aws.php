@@ -74,11 +74,11 @@ class Aws implements ProviderInterface
     {
         return <<<'PHP'
 /** @var \Psr\Container\ContainerInterface $container */
-/** @var int $routeId */
+/** @var array $method */
 
 return new \Fusio\Adapter\Aws\Push\Handler(
     $container->get('serverless_executor'),
-    $routeId
+    $method
 );
 
 PHP;

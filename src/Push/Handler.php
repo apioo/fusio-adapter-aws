@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Aws\Push;
+namespace Fusio\Impl\Provider\Push\Aws;
 
 use Bref\Context\Context;
 use Bref\Event\Http\HttpHandler;
@@ -42,14 +42,14 @@ class Handler extends HttpHandler
     private $executor;
 
     /**
-     * @var int
+     * @var array
      */
-    private $routeId;
+    private $method;
 
-    public function __construct(ExecutorInterface $executor, int $routeId)
+    public function __construct(ExecutorInterface $executor, array $method)
     {
         $this->executor = $executor;
-        $this->routeId = $routeId;
+        $this->method = $method;
     }
 
     public function handleRequest(HttpRequestEvent $event, Context $context): HttpResponse
@@ -57,7 +57,7 @@ class Handler extends HttpHandler
         $uriParameters = []; // @TODO get uri path parameters
 
         $response = $this->executor->execute(
-            $this->routeId,
+            $this->method,
             $event->getMethod(),
             $event->getUri(),
             $uriParameters,
