@@ -66,7 +66,21 @@ class Aws implements ProviderInterface
         yield from $this->generator->generate(
             $basePath,
             $config,
-            \Fusio\Adapter\Aws\Push\Handler::class
+            $this->generateStub()
         );
+    }
+
+    private function generateStub()
+    {
+        return <<<'PHP'
+/** @var \Psr\Container\ContainerInterface $container */
+/** @var int $routeId */
+
+return new \Fusio\Adapter\Aws\Push\Handler(
+    $container->get('serverless_executor'),
+    $routeId
+);
+
+PHP;
     }
 }
