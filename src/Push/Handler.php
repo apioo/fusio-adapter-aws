@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Aws\Handler;
+namespace Fusio\Adapter\Aws\Push;
 
 use Bref\Context\Context;
 use Bref\Event\Http\HttpHandler;
@@ -28,13 +28,13 @@ use Bref\Event\Http\HttpResponse;
 use Fusio\Engine\Serverless\ExecutorInterface;
 
 /**
- * Aws
+ * Handler
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    http://fusio-project.org
  */
-class Aws extends HttpHandler
+class Handler extends HttpHandler
 {
     /**
      * @var ExecutorInterface

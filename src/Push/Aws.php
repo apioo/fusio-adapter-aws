@@ -66,7 +66,7 @@ class Aws implements ProviderInterface
         yield from $this->generator->generate(
             $basePath,
             $config,
-            \Fusio\Adapter\Aws\Handler\Aws::class
+            \Fusio\Adapter\Aws\Push\Handler::class
         );
     }
 }
