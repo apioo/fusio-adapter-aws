@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Impl\Provider\Push\Aws;
+namespace Fusio\Adapter\Aws\Push;
 
 use Bref\Context\Context;
 use Bref\Event\Http\HttpHandler;
