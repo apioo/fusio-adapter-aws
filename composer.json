@@ -1,14 +1,14 @@
 {
   "name": "fusio/adapter-aws",
   "description": "Provides connections to amazon web services",
-  "homepage": "http://fusio-project.org",
+  "homepage": "https://www.fusio-project.org",
   "keywords": ["fusio-adapter"],
   "license": "AGPL-3.0",
   "authors": [
     {
       "name": "Christoph Kappestein",
       "email": "christoph.kappestein@gmail.com",
-      "homepage": "http://christoph.kappestein.com"
+      "homepage": "https://chrisk.app"
     }
   ],
   "require": {
