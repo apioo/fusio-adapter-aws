@@ -3,7 +3,7 @@
  * Fusio
  * A web-application to create dynamically RESTful APIs
  *
- * Copyright (C) 2015-2018 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright (C) 2015-2022 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -32,20 +32,16 @@ use Fusio\Engine\ParametersInterface;
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
- * @link    http://fusio-project.org
+ * @link    https://www.fusio-project.org/
  */
 class Aws implements ConnectionInterface
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Aws';
     }
 
-    /**
-     * @param ParametersInterface $config
-     * @return \Aws\Sdk
-     */
-    public function getConnection(ParametersInterface $config)
+    public function getConnection(ParametersInterface $config): Sdk
     {
         $params = [
             'version' => $config->get('version'),
@@ -64,7 +60,7 @@ class Aws implements ConnectionInterface
         return new Sdk($params);
     }
 
-    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory)
+    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory): void
     {
         $builder->add($elementFactory->newInput('version', 'Version', 'The version of the webservice to utilize (e.g., 2006-03-01)'));
         $builder->add($elementFactory->newInput('region', 'Region', 'Region to connect to. See http://docs.aws.amazon.com/general/latest/gr/rande.html for a list of available regions'));

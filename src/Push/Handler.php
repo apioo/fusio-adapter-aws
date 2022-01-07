@@ -32,19 +32,12 @@ use Fusio\Engine\Serverless\ExecutorInterface;
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
- * @link    http://fusio-project.org
+ * @link    https://www.fusio-project.org/
  */
 class Handler extends HttpHandler
 {
-    /**
-     * @var ExecutorInterface
-     */
-    private $executor;
-
-    /**
-     * @var array
-     */
-    private $method;
+    private ExecutorInterface $executor;
+    private array $method;
 
     public function __construct(ExecutorInterface $executor, array $method)
     {

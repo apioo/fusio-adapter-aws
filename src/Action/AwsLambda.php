@@ -3,7 +3,7 @@
  * Fusio
  * A web-application to create dynamically RESTful APIs
  *
- * Copyright (C) 2015-2018 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright (C) 2015-2022 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -29,58 +29,58 @@ use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
 use Fusio\Engine\RequestInterface;
+use PSX\Http\Environment\HttpResponseInterface;
 
 /**
  * AwsLambda
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
- * @link    http://fusio-project.org
+ * @link    https://www.fusio-project.org/
  */
 class AwsLambda extends ActionAbstract
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Aws-Lambda';
     }
 
-    public function handle(RequestInterface $request, ParametersInterface $configuration, ContextInterface $context)
+    public function handle(RequestInterface $request, ParametersInterface $configuration, ContextInterface $context): HttpResponseInterface
     {
         $sdk = $this->connector->getConnection($configuration->get('connection'));
-
-        if ($sdk instanceof Sdk) {
-            $client = $sdk->createLambda();
-
-            $args = [
-                'FunctionName' => $configuration->get('function_name'),
-                'InvocationType' => $configuration->get('invocation_type') ?: 'RequestResponse',
-                'LogType' => $configuration->get('log_type') ?: 'None',
-                'Payload' => json_encode($request->getBody()),
-            ];
-
-            $clientContext = $configuration->get('client_context');
-            if (!empty($clientContext)) {
-                $args['ClientContext'] = $clientContext;
-            }
-
-            $qualifier = $configuration->get('qualifier');
-            if (!empty($qualifier)) {
-                $args['Qualifier'] = $qualifier;
-            }
-
-            $result = $client->invoke($args);
-
-            return $this->response->build(
-                $result->get('StatusCode'),
-                [],
-                json_decode($result->get('Payload') ?: '{}')
-            );
-        } else {
+        if (!$sdk instanceof Sdk) {
             throw new ConfigurationException('Given connection must be an Aws connection');
         }
+
+        $client = $sdk->createLambda();
+
+        $args = [
+            'FunctionName' => $configuration->get('function_name'),
+            'InvocationType' => $configuration->get('invocation_type') ?: 'RequestResponse',
+            'LogType' => $configuration->get('log_type') ?: 'None',
+            'Payload' => json_encode($request->getBody()),
+        ];
+
+        $clientContext = $configuration->get('client_context');
+        if (!empty($clientContext)) {
+            $args['ClientContext'] = $clientContext;
+        }
+
+        $qualifier = $configuration->get('qualifier');
+        if (!empty($qualifier)) {
+            $args['Qualifier'] = $qualifier;
+        }
+
+        $result = $client->invoke($args);
+
+        return $this->response->build(
+            $result->get('StatusCode'),
+            [],
+            json_decode($result->get('Payload') ?: '{}')
+        );
     }
 
-    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory)
+    public function configure(BuilderInterface $builder, ElementFactoryInterface $elementFactory): void
     {
         $invocationTypes = [
             'Event' => 'Event',

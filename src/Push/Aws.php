@@ -30,28 +30,18 @@ use Fusio\Engine\Serverless\GeneratorInterface;
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
- * @link    http://fusio-project.org
+ * @link    https://www.fusio-project.org/
  */
 class Aws implements ProviderInterface
 {
-    /**
-     * @var GeneratorInterface
-     */
-    private $generator;
+    private GeneratorInterface $generator;
 
-    /**
-     * @param GeneratorInterface $generator
-     */
     public function __construct(GeneratorInterface $generator)
     {
         $this->generator = $generator;
     }
 
-    /**
-     * @param string $basePath
-     * @return \Generator
-     */
-    public function push(string $basePath)
+    public function push(string $basePath): \Generator
     {
         $config = new Config();
         $config->setProviderName('aws');
@@ -70,7 +60,7 @@ class Aws implements ProviderInterface
         );
     }
 
-    private function generateStub()
+    private function generateStub(): string
     {
         return <<<'PHP'
 /** @var \Psr\Container\ContainerInterface $container */
