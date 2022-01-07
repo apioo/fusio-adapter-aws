@@ -79,11 +79,7 @@ class AwsLambdaTest extends TestCase
             ->method('createLambda')
             ->will($this->returnValue($client));
 
-        $connection = new Connection();
-        $connection->setId(1);
-        $connection->setName('foo');
-        $connection->setClass(CallbackConnection::class);
-        $connection->setConfig([
+        $connection = new Connection(1, 'foo', CallbackConnection::class, [
             'callback' => function() use ($sdk){
                 return $sdk;
             },
@@ -132,7 +128,7 @@ JSON;
 
         $this->assertInstanceOf(Container::class, $builder->getForm());
 
-        $elements = $builder->getForm()->getProperty('element');
+        $elements = $builder->getForm()->getElements();
         $this->assertEquals(6, count($elements));
         $this->assertInstanceOf(Element\Connection::class, $elements[0]);
         $this->assertInstanceOf(Element\Input::class, $elements[1]);
