@@ -4,8 +4,5 @@
   ],
   "actionClass": [
     "Fusio\\Adapter\\Aws\\Action\\AwsLambda"
-  ],
-  "pushClass": [
-    "Fusio\\Adapter\\Aws\\Push\\Aws"
   ]
 }
