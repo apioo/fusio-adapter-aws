@@ -32,7 +32,7 @@ use Fusio\Engine\RequestInterface;
 use PSX\Http\Environment\HttpResponseInterface;
 
 /**
- * AwsLambda
+ * AwsLambdaInvoke
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
