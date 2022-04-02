@@ -38,11 +38,11 @@ use PSX\Http\Environment\HttpResponseInterface;
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    https://www.fusio-project.org/
  */
-class AwsLambda extends ActionAbstract
+class AwsLambdaInvoke extends ActionAbstract
 {
     public function getName(): string
     {
-        return 'Aws-Lambda';
+        return 'AWS-Lambda-Invoke';
     }
 
     public function handle(RequestInterface $request, ParametersInterface $configuration, ContextInterface $context): HttpResponseInterface
@@ -52,10 +52,15 @@ class AwsLambda extends ActionAbstract
             throw new ConfigurationException('Given connection must be an Aws connection');
         }
 
+        $functionName = $configuration->get('function_name');
+        if (empty($functionName)) {
+            throw new ConfigurationException('No function name provided');
+        }
+
         $client = $sdk->createLambda();
 
         $args = [
-            'FunctionName' => $configuration->get('function_name'),
+            'FunctionName' => $functionName,
             'InvocationType' => $configuration->get('invocation_type') ?: 'RequestResponse',
             'LogType' => $configuration->get('log_type') ?: 'None',
             'Payload' => json_encode($request->getBody()),
@@ -64,11 +69,6 @@ class AwsLambda extends ActionAbstract
         $clientContext = $configuration->get('client_context');
         if (!empty($clientContext)) {
             $args['ClientContext'] = $clientContext;
-        }
-
-        $qualifier = $configuration->get('qualifier');
-        if (!empty($qualifier)) {
-            $args['Qualifier'] = $qualifier;
         }
 
         $result = $client->invoke($args);
@@ -97,7 +97,6 @@ class AwsLambda extends ActionAbstract
         $builder->add($elementFactory->newInput('function_name', 'FunctionName', 'text', 'The Lambda function name.'));
         $builder->add($elementFactory->newSelect('invocation_type', 'Invocation-Type', $invocationTypes, 'By default, the Invoke API assumes "RequestResponse" invocation type. You can optionally request asynchronous execution by specifying "Event" as the InvocationType. You can also use this parameter to request AWS Lambda to not execute the function but do some verification, such as if the caller is authorized to invoke the function and if the inputs are valid. You request this by specifying "DryRun" as the InvocationType. This is useful in a cross-account scenario when you want to verify access to a function without running it.'));
         $builder->add($elementFactory->newSelect('log_type', 'Log-Type', $logTypes, 'You can set this optional parameter to "Tail" in the request only if you specify the InvocationType parameter with value "RequestResponse". In this case, AWS Lambda returns the base64-encoded last 4 KB of log data produced by your Lambda function in the x-amz-log-results header.'));
-        $builder->add($elementFactory->newInput('qualifier', 'Qualifier', 'text', 'You can use this optional paramter to specify a Lambda function version or alias name. If you specify function version, the API uses qualified function ARN to invoke a specific Lambda function. If you specify alias name, the API uses the alias ARN to invoke the Lambda function version to which the alias points.'));
         $builder->add($elementFactory->newTextArea('client_context', 'Client-Context', 'json', 'Using the ClientContext you can pass client-specific information to the Lambda function you are invoking. You can then process the client information in your Lambda function as you choose through the context variable.'));
     }
 }

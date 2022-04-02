@@ -24,7 +24,7 @@ namespace Fusio\Adapter\Aws\Tests\Action;
 use Aws\Lambda\LambdaClient;
 use Aws\Result;
 use Aws\Sdk;
-use Fusio\Adapter\Aws\Action\AwsLambda;
+use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
 use Fusio\Engine\Form\Builder;
 use Fusio\Engine\Form\Container;
 use Fusio\Engine\Form\Element;
@@ -87,7 +87,7 @@ class AwsLambdaTest extends TestCase
 
         $this->getConnectionRepository()->add($connection);
 
-        $action = $this->getActionFactory()->factory(AwsLambda::class);
+        $action = $this->getActionFactory()->factory(AwsLambdaInvoke::class);
 
         // handle request
         $response = $action->handle(
@@ -120,7 +120,7 @@ JSON;
 
     public function testGetForm()
     {
-        $action  = $this->getActionFactory()->factory(AwsLambda::class);
+        $action  = $this->getActionFactory()->factory(AwsLambdaInvoke::class);
         $builder = new Builder();
         $factory = $this->getFormElementFactory();
 

@@ -14,8 +14,7 @@
   "require": {
     "php": ">=8.0",
     "fusio/engine": "^5.0",
-    "aws/aws-sdk-php": "^3.36",
-    "bref/bref": "^1.0"
+    "aws/aws-sdk-php": "^3.36"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.0"

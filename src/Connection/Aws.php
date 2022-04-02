@@ -38,7 +38,7 @@ class Aws implements ConnectionInterface
 {
     public function getName(): string
     {
-        return 'Aws';
+        return 'AWS';
     }
 
     public function getConnection(ParametersInterface $config): Sdk
