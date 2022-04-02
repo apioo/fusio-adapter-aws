@@ -23,9 +23,6 @@ namespace Fusio\Adapter\Aws\Tests\Connection;
 
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Connection\Aws;
-use Fusio\Engine\Form\Builder;
-use Fusio\Engine\Form\Container;
-use Fusio\Engine\Form\Element\Input;
 use Fusio\Engine\Parameters;
 use Fusio\Engine\Test\EngineTestCaseTrait;
 use PHPUnit\Framework\TestCase;
