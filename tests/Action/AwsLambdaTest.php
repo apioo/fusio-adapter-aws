@@ -117,24 +117,4 @@ JSON;
         $this->assertEquals([], $response->getHeaders());
         $this->assertJsonStringEqualsJsonString($expect, $actual, $actual);
     }
-
-    public function testGetForm()
-    {
-        $action  = $this->getActionFactory()->factory(AwsLambdaInvoke::class);
-        $builder = new Builder();
-        $factory = $this->getFormElementFactory();
-
-        $action->configure($builder, $factory);
-
-        $this->assertInstanceOf(Container::class, $builder->getForm());
-
-        $elements = $builder->getForm()->getElements();
-        $this->assertEquals(6, count($elements));
-        $this->assertInstanceOf(Element\Connection::class, $elements[0]);
-        $this->assertInstanceOf(Element\Input::class, $elements[1]);
-        $this->assertInstanceOf(Element\Select::class, $elements[2]);
-        $this->assertInstanceOf(Element\Select::class, $elements[3]);
-        $this->assertInstanceOf(Element\Input::class, $elements[4]);
-        $this->assertInstanceOf(Element\TextArea::class, $elements[5]);
-    }
 }
