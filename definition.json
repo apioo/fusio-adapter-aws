@@ -5,7 +5,7 @@
   "actionClass": [
     "Fusio\\Adapter\\Aws\\Action\\AwsLambdaInvoke"
   ],
-  "routesClass": [
-    "Fusio\\Adapter\\Aws\\Routes\\AwsLambda"
+  "generatorClass": [
+    "Fusio\\Adapter\\Aws\\Generator\\AwsLambda"
   ]
 }

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Aws\Routes;
+namespace Fusio\Adapter\Aws\Generator;
 
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
@@ -28,8 +28,8 @@ use Fusio\Engine\Factory\Resolver\PhpClass;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
-use Fusio\Engine\Routes\ProviderInterface;
-use Fusio\Engine\Routes\SetupInterface;
+use Fusio\Engine\Generator\ProviderInterface;
+use Fusio\Engine\Generator\SetupInterface;
 
 /**
  * AwsLambda
