@@ -3,7 +3,7 @@
  * Fusio
  * A web-application to create dynamically RESTful APIs
  *
- * Copyright (C) 2015-2022 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright (C) 2015-2023 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,9 +23,8 @@ namespace Fusio\Adapter\Aws\Tests\Connection;
 
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Connection\Aws;
+use Fusio\Adapter\Aws\Tests\AwsTestCase;
 use Fusio\Engine\Parameters;
-use Fusio\Engine\Test\EngineTestCaseTrait;
-use PHPUnit\Framework\TestCase;
 
 /**
  * AmazonTest
@@ -34,10 +33,8 @@ use PHPUnit\Framework\TestCase;
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    https://www.fusio-project.org/
  */
-class AwsTest extends TestCase
+class AwsTest extends AwsTestCase
 {
-    use EngineTestCaseTrait;
-
     public function testGetConnection()
     {
         /** @var Aws $connectionFactory */

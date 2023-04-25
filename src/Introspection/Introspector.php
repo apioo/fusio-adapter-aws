@@ -22,11 +22,9 @@
 namespace Fusio\Adapter\Aws\Introspection;
 
 use Aws\Sdk;
-use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
 use Fusio\Engine\Connection\Introspection\Entity;
 use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
 use Fusio\Engine\Connection\Introspection\Row;
-use Fusio\Engine\Factory\Resolver\PhpClass;
 
 /**
  * Introspector

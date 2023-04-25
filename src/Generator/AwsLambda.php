@@ -3,7 +3,7 @@
  * Fusio
  * A web-application to create dynamically RESTful APIs
  *
- * Copyright (C) 2015-2022 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright (C) 2015-2023 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -27,9 +27,9 @@ use Fusio\Engine\ConnectorInterface;
 use Fusio\Engine\Factory\Resolver\PhpClass;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
-use Fusio\Engine\ParametersInterface;
 use Fusio\Engine\Generator\ProviderInterface;
 use Fusio\Engine\Generator\SetupInterface;
+use Fusio\Engine\ParametersInterface;
 
 /**
  * AwsLambda

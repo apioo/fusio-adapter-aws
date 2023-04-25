@@ -3,7 +3,7 @@
  * Fusio
  * A web-application to create dynamically RESTful APIs
  *
- * Copyright (C) 2015-2022 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright (C) 2015-2023 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,10 +25,9 @@ use Aws\Lambda\LambdaClient;
 use Aws\Result;
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
+use Fusio\Adapter\Aws\Tests\AwsTestCase;
 use Fusio\Engine\Model\Connection;
 use Fusio\Engine\Test\CallbackConnection;
-use Fusio\Engine\Test\EngineTestCaseTrait;
-use PHPUnit\Framework\TestCase;
 use PSX\Http\Environment\HttpResponseInterface;
 use PSX\Record\Record;
 
@@ -39,10 +38,8 @@ use PSX\Record\Record;
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    https://www.fusio-project.org/
  */
-class AwsLambdaTest extends TestCase
+class AwsLambdaTest extends AwsTestCase
 {
-    use EngineTestCaseTrait;
-
     public function testHandle()
     {
         $args = [

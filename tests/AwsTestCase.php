@@ -19,21 +19,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Fusio\Adapter\Aws;
+namespace Fusio\Adapter\Aws\Tests;
 
-use Fusio\Engine\AdapterInterface;
+use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
+use Fusio\Adapter\Aws\Connection\Aws;
+use Fusio\Adapter\Aws\Generator\AwsLambda;
+use Fusio\Engine\Action\Runtime;
+use Fusio\Engine\ConnectorInterface;
+use Fusio\Engine\Test\EngineTestCaseTrait;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Adapter
+ * AwsTestCase
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    https://www.fusio-project.org/
  */
-class Adapter implements AdapterInterface
+abstract class AwsTestCase extends TestCase
 {
-    public function getContainerFile(): string
+    use EngineTestCaseTrait;
+
+    protected function configure(Runtime $runtime, Container $container): void
     {
-        return __DIR__ . '/../resources/container.php';
+        $container->set(Aws::class, new Aws());
+        $container->set(AwsLambdaInvoke::class, new AwsLambdaInvoke($runtime));
+        $container->set(AwsLambda::class, new AwsLambda($container->get(ConnectorInterface::class)));
     }
 }
