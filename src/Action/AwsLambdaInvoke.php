@@ -63,7 +63,7 @@ class AwsLambdaInvoke extends ActionAbstract
             'FunctionName' => $functionName,
             'InvocationType' => $configuration->get('invocation_type') ?: 'RequestResponse',
             'LogType' => $configuration->get('log_type') ?: 'None',
-            'Payload' => json_encode($request->getBody()),
+            'Payload' => json_encode($request->getPayload()),
         ];
 
         $clientContext = $configuration->get('client_context');
@@ -74,7 +74,7 @@ class AwsLambdaInvoke extends ActionAbstract
         $result = $client->invoke($args);
 
         return $this->response->build(
-            $result->get('StatusCode'),
+            (int) $result->get('StatusCode'),
             [],
             json_decode($result->get('Payload') ?: '{}')
         );

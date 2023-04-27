@@ -70,10 +70,9 @@ class AwsLambda implements ProviderInterface
         $builder->add($elementFactory->newConnection('connection', 'Connection', 'The AWS connection which should be used'));
     }
 
-    private function getConnection($connectionId): Sdk
+    private function getConnection(string $connectionId): Sdk
     {
         $connection = $this->connector->getConnection($connectionId);
-
         if ($connection instanceof Sdk) {
             return $connection;
         } else {
