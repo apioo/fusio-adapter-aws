@@ -23,9 +23,9 @@ namespace Fusio\Adapter\Aws\Connection;
 
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Introspection\Introspector;
+use Fusio\Adapter\OpenStack\Connection\ConnectionAbstract;
 use Fusio\Engine\Connection\IntrospectableInterface;
 use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
-use Fusio\Engine\ConnectionInterface;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
@@ -37,7 +37,7 @@ use Fusio\Engine\ParametersInterface;
  * @license http://www.gnu.org/licenses/agpl-3.0
  * @link    https://www.fusio-project.org/
  */
-class Aws implements ConnectionInterface, IntrospectableInterface
+class Aws extends ConnectionAbstract implements IntrospectableInterface
 {
     public function getName(): string
     {
