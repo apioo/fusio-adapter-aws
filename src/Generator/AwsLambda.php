@@ -30,6 +30,8 @@ use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\Generator\ProviderInterface;
 use Fusio\Engine\Generator\SetupInterface;
 use Fusio\Engine\ParametersInterface;
+use Fusio\Model\Backend\Action;
+use Fusio\Model\Backend\ActionConfig;
 
 /**
  * AwsLambda
@@ -58,10 +60,15 @@ class AwsLambda implements ProviderInterface
         $functions = $connection->createLambda()->listFunctions();
 
         foreach ($functions as $function) {
-            $setup->addAction($function->FunctionName, AwsLambdaInvoke::class, PhpClass::class, [
+            $action = new Action();
+            $action->setName($function->FunctionName);
+            $action->setClass(AwsLambdaInvoke::class);
+            $action->setEngine(PhpClass::class);
+            $action->setConfig(ActionConfig::fromArray([
                 'connection' => $configuration->get('connection'),
                 'function_name' => $function->FunctionName,
-            ]);
+            ]));
+            $setup->addAction($action);
         }
     }
 
