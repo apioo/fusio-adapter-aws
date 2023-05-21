@@ -23,9 +23,9 @@ namespace Fusio\Adapter\Aws\Connection;
 
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Introspection\Introspector;
-use Fusio\Adapter\OpenStack\Connection\ConnectionAbstract;
 use Fusio\Engine\Connection\IntrospectableInterface;
 use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
+use Fusio\Engine\ConnectionAbstract;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
