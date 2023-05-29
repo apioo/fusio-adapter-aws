@@ -54,7 +54,7 @@ class AwsLambda implements ProviderInterface
         return 'AWS-Lambda';
     }
 
-    public function setup(SetupInterface $setup, string $basePath, ParametersInterface $configuration): void
+    public function setup(SetupInterface $setup, ParametersInterface $configuration): void
     {
         $connection = $this->getConnection($configuration->get('connection'));
         $functions = $connection->createLambda()->listFunctions();
