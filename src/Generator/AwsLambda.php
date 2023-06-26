@@ -63,7 +63,6 @@ class AwsLambda implements ProviderInterface
             $action = new ActionCreate();
             $action->setName($function->FunctionName);
             $action->setClass(AwsLambdaInvoke::class);
-            $action->setEngine(PhpClass::class);
             $action->setConfig(ActionConfig::fromArray([
                 'connection' => $configuration->get('connection'),
                 'function_name' => $function->FunctionName,
