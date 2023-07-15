@@ -21,14 +21,9 @@
 
 namespace Fusio\Adapter\Aws\Tests;
 
-use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
-use Fusio\Adapter\Aws\Connection\Aws;
-use Fusio\Adapter\Aws\Generator\AwsLambda;
-use Fusio\Engine\Action\Runtime;
-use Fusio\Engine\ConnectorInterface;
+use Fusio\Adapter\Aws\Adapter;
 use Fusio\Engine\Test\EngineTestCaseTrait;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * AwsTestCase
@@ -41,10 +36,8 @@ abstract class AwsTestCase extends TestCase
 {
     use EngineTestCaseTrait;
 
-    protected function configure(Runtime $runtime, Container $container): void
+    protected function getAdapterClass(): string
     {
-        $container->set(Aws::class, new Aws());
-        $container->set(AwsLambdaInvoke::class, new AwsLambdaInvoke($runtime));
-        $container->set(AwsLambda::class, new AwsLambda($container->get(ConnectorInterface::class)));
+        return Adapter::class;
     }
 }
