@@ -3,7 +3,7 @@
   "description": "Provides connections to amazon web services",
   "homepage": "https://www.fusio-project.org",
   "keywords": ["fusio-adapter"],
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "Christoph Kappestein",
