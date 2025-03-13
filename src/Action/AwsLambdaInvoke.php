@@ -21,7 +21,6 @@
 namespace Fusio\Adapter\Aws\Action;
 
 use Aws\Sdk;
-use Fusio\Engine\Action\RuntimeInterface;
 use Fusio\Engine\ActionAbstract;
 use Fusio\Engine\ContextInterface;
 use Fusio\Engine\Exception\ConfigurationException;
@@ -29,7 +28,6 @@ use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
 use Fusio\Engine\ParametersInterface;
 use Fusio\Engine\RequestInterface;
-use Fusio\Engine\Worker\ExecuteBuilderInterface;
 use PSX\Http\Environment\HttpResponseInterface;
 use PSX\Json\Parser;
 
@@ -42,15 +40,6 @@ use PSX\Json\Parser;
  */
 class AwsLambdaInvoke extends ActionAbstract
 {
-    private ExecuteBuilderInterface $executeBuilder;
-
-    public function __construct(RuntimeInterface $runtime, ExecuteBuilderInterface $executeBuilder)
-    {
-        parent::__construct($runtime);
-
-        $this->executeBuilder = $executeBuilder;
-    }
-
     public function getName(): string
     {
         return 'AWS-Lambda-Invoke';
