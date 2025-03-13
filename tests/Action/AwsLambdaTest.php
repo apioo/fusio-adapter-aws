@@ -28,6 +28,7 @@ use Fusio\Adapter\Aws\Tests\AwsTestCase;
 use Fusio\Engine\Model\Connection;
 use Fusio\Engine\Test\CallbackConnection;
 use PSX\Http\Environment\HttpResponseInterface;
+use PSX\Json\Parser;
 use PSX\Record\Record;
 
 /**
@@ -45,32 +46,44 @@ class AwsLambdaTest extends AwsTestCase
             'FunctionName' => 'foo',
             'InvocationType' => 'RequestResponse',
             'LogType' => 'None',
-            'Payload' => json_encode(['foo' => 'bar']),
+            'Payload' => Parser::encode([
+                'arguments' => ['foo' => 'bar'],
+                'payload' => ['foo' => 'bar'],
+                'context' => [
+                    'type' => 'Fusio.Engine.Request.HttpRequestContext',
+                    'uriFragments' => ['foo' => 'bar'],
+                    'method' => 'GET',
+                    'path' => '/foo',
+                    'queryParameters' => ['foo' => 'bar'],
+                    'headers' => ['content-type' => 'application/json'],
+                ],
+            ]),
+            'ClientContext' => 'ewogICAgIm9wZXJhdGlvbklkIjogMzQsCiAgICAiYmFzZVVybCI6ICJodHRwOi8vMTI3LjAuMC4xIiwKICAgICJhcHAiOiB7CiAgICAgICAgImFub255bW91cyI6IGZhbHNlLAogICAgICAgICJpZCI6IDMsCiAgICAgICAgInVzZXJJZCI6IDIsCiAgICAgICAgInN0YXR1cyI6IDEsCiAgICAgICAgIm5hbWUiOiAiRm9vLUFwcCIsCiAgICAgICAgInVybCI6ICJodHRwOi8vZ29vZ2xlLmNvbSIsCiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgICAgICJmb28iOiAiYmFyIgogICAgICAgIH0sCiAgICAgICAgImFwcEtleSI6ICI1MzQ3MzA3ZC1kODAxLTQwNzUtOWFhYS1hMjFhMjlhNDQ4YzUiLAogICAgICAgICJzY29wZXMiOiBbCiAgICAgICAgICAgICJmb28iLAogICAgICAgICAgICAiYmFyIgogICAgICAgIF0sCiAgICAgICAgIm1ldGFkYXRhIjogbnVsbAogICAgfSwKICAgICJ1c2VyIjogewogICAgICAgICJhbm9ueW1vdXMiOiBmYWxzZSwKICAgICAgICAiaWQiOiAyLAogICAgICAgICJyb2xlSWQiOiAxLAogICAgICAgICJjYXRlZ29yeUlkIjogMSwKICAgICAgICAic3RhdHVzIjogMCwKICAgICAgICAibmFtZSI6ICJDb25zdW1lciIsCiAgICAgICAgImVtYWlsIjogImNvbnN1bWVyQGFwcC5kZXYiLAogICAgICAgICJwb2ludHMiOiAxMDAsCiAgICAgICAgImV4dGVybmFsSWQiOiBudWxsLAogICAgICAgICJwbGFuSWQiOiBudWxsLAogICAgICAgICJtZXRhZGF0YSI6IG51bGwKICAgIH0sCiAgICAidGVuYW50SWQiOiBudWxsLAogICAgImFjdGlvbiI6IHsKICAgICAgICAiaWQiOiAxLAogICAgICAgICJuYW1lIjogImZvbyIsCiAgICAgICAgImNsYXNzIjogInN0ZENsYXNzIiwKICAgICAgICAiYXN5bmMiOiBmYWxzZSwKICAgICAgICAiY29uZmlnIjogW10sCiAgICAgICAgIm1ldGFkYXRhIjogbnVsbAogICAgfQp9',
         ];
 
         $client = $this->getMockBuilder(LambdaClient::class)
             ->disableOriginalConstructor()
-            ->setMethods(['invoke'])
+            ->addMethods(['invoke'])
             ->getMock();
 
         $result = new Result([
             'StatusCode' => 200,
-            'Payload' => json_encode(['foo' => 'bar']),
+            'Payload' => Parser::encode(['foo' => 'bar']),
         ]);
 
         $client->expects($this->once())
             ->method('invoke')
             ->with($this->equalTo($args))
-            ->will($this->returnValue($result));
+            ->willReturn($result);
 
         $sdk = $this->getMockBuilder(Sdk::class)
             ->disableOriginalConstructor()
-            ->setMethods(['createLambda'])
+            ->addMethods(['createLambda'])
             ->getMock();
 
         $sdk->expects($this->once())
             ->method('createLambda')
-            ->will($this->returnValue($client));
+            ->willReturn($client);
 
         $connection = new Connection(1, 'foo', CallbackConnection::class, [
             'callback' => function() use ($sdk){
@@ -98,7 +111,7 @@ class AwsLambdaTest extends AwsTestCase
             $this->getContext()
         );
 
-        $actual = json_encode($response->getBody(), JSON_PRETTY_PRINT);
+        $actual = Parser::encode($response->getBody(), JSON_PRETTY_PRINT);
         $expect = <<<JSON
 {
     "foo": "bar"
