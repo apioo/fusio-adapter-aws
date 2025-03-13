@@ -69,7 +69,7 @@ class AwsLambdaInvoke extends ActionAbstract
         return $this->response->build(
             (int) $result->get('StatusCode'),
             [],
-            Parser::decode($result->get('Payload') ?: '{}')
+            Parser::decode($result->get('Payload') ?? '{}')
         );
     }
 
