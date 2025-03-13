@@ -21,9 +21,6 @@
 namespace Fusio\Adapter\Aws\Connection;
 
 use Aws\Sdk;
-use Fusio\Adapter\Aws\Introspection\Introspector;
-use Fusio\Engine\Connection\IntrospectableInterface;
-use Fusio\Engine\Connection\Introspection\IntrospectorInterface;
 use Fusio\Engine\ConnectionAbstract;
 use Fusio\Engine\Form\BuilderInterface;
 use Fusio\Engine\Form\ElementFactoryInterface;
@@ -36,7 +33,7 @@ use Fusio\Engine\ParametersInterface;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    https://www.fusio-project.org/
  */
-class Aws extends ConnectionAbstract implements IntrospectableInterface
+class Aws extends ConnectionAbstract
 {
     public function getName(): string
     {
@@ -68,10 +65,5 @@ class Aws extends ConnectionAbstract implements IntrospectableInterface
         $builder->add($elementFactory->newInput('region', 'Region', 'Region to connect to. See http://docs.aws.amazon.com/general/latest/gr/rande.html for a list of available regions'));
         $builder->add($elementFactory->newInput('key', 'Key', 'AWS access key ID'));
         $builder->add($elementFactory->newInput('secret', 'Secret', 'AWS secret access key'));
-    }
-
-    public function getIntrospector(mixed $connection): IntrospectorInterface
-    {
-        return new Introspector($connection);
     }
 }
