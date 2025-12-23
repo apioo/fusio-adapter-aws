@@ -34,7 +34,7 @@ use Fusio\Engine\Parameters;
  */
 class AwsTest extends AwsTestCase
 {
-    public function testGetConnection()
+    public function testGetConnection(): void
     {
         /** @var Aws $connectionFactory */
         $connectionFactory = $this->getConnectionFactory()->factory(Aws::class);

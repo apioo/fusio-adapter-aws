@@ -25,7 +25,10 @@ use Aws\Result;
 use Aws\Sdk;
 use Fusio\Adapter\Aws\Action\AwsLambdaInvoke;
 use Fusio\Adapter\Aws\Tests\AwsTestCase;
+use Fusio\Adapter\Aws\Tests\MockLambdaClient;
+use Fusio\Adapter\Aws\Tests\MockSdk;
 use Fusio\Engine\Model\Connection;
+use Fusio\Engine\Repository\ConnectionMemory;
 use Fusio\Engine\Test\CallbackConnection;
 use PSX\Http\Environment\HttpResponseInterface;
 use PSX\Json\Parser;
@@ -40,7 +43,7 @@ use PSX\Record\Record;
  */
 class AwsLambdaTest extends AwsTestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $args = [
             'FunctionName' => 'foo',
@@ -61,9 +64,9 @@ class AwsLambdaTest extends AwsTestCase
             'ClientContext' => 'ewogICAgIm9wZXJhdGlvbklkIjogMzQsCiAgICAiYmFzZVVybCI6ICJodHRwOi8vMTI3LjAuMC4xIiwKICAgICJhcHAiOiB7CiAgICAgICAgImFub255bW91cyI6IGZhbHNlLAogICAgICAgICJpZCI6IDMsCiAgICAgICAgInVzZXJJZCI6IDIsCiAgICAgICAgInN0YXR1cyI6IDEsCiAgICAgICAgIm5hbWUiOiAiRm9vLUFwcCIsCiAgICAgICAgInVybCI6ICJodHRwOi8vZ29vZ2xlLmNvbSIsCiAgICAgICAgInBhcmFtZXRlcnMiOiB7CiAgICAgICAgICAgICJmb28iOiAiYmFyIgogICAgICAgIH0sCiAgICAgICAgImFwcEtleSI6ICI1MzQ3MzA3ZC1kODAxLTQwNzUtOWFhYS1hMjFhMjlhNDQ4YzUiLAogICAgICAgICJzY29wZXMiOiBbCiAgICAgICAgICAgICJmb28iLAogICAgICAgICAgICAiYmFyIgogICAgICAgIF0sCiAgICAgICAgIm1ldGFkYXRhIjogbnVsbAogICAgfSwKICAgICJ1c2VyIjogewogICAgICAgICJhbm9ueW1vdXMiOiBmYWxzZSwKICAgICAgICAiaWQiOiAyLAogICAgICAgICJyb2xlSWQiOiAxLAogICAgICAgICJjYXRlZ29yeUlkIjogMSwKICAgICAgICAic3RhdHVzIjogMCwKICAgICAgICAibmFtZSI6ICJDb25zdW1lciIsCiAgICAgICAgImVtYWlsIjogImNvbnN1bWVyQGFwcC5kZXYiLAogICAgICAgICJwb2ludHMiOiAxMDAsCiAgICAgICAgImV4dGVybmFsSWQiOiBudWxsLAogICAgICAgICJwbGFuSWQiOiBudWxsLAogICAgICAgICJtZXRhZGF0YSI6IG51bGwKICAgIH0sCiAgICAidGVuYW50SWQiOiBudWxsLAogICAgImFjdGlvbiI6IHsKICAgICAgICAiaWQiOiAxLAogICAgICAgICJuYW1lIjogImZvbyIsCiAgICAgICAgImNsYXNzIjogInN0ZENsYXNzIiwKICAgICAgICAiYXN5bmMiOiBmYWxzZSwKICAgICAgICAiY29uZmlnIjogW10sCiAgICAgICAgIm1ldGFkYXRhIjogbnVsbAogICAgfQp9',
         ];
 
-        $client = $this->getMockBuilder(LambdaClient::class)
+        $client = $this->getMockBuilder(MockLambdaClient::class)
             ->disableOriginalConstructor()
-            ->addMethods(['invoke'])
+            ->onlyMethods(['invoke'])
             ->getMock();
 
         $result = new Result([
@@ -76,9 +79,9 @@ class AwsLambdaTest extends AwsTestCase
             ->with($this->equalTo($args))
             ->willReturn($result);
 
-        $sdk = $this->getMockBuilder(Sdk::class)
+        $sdk = $this->getMockBuilder(MockSdk::class)
             ->disableOriginalConstructor()
-            ->addMethods(['createLambda'])
+            ->onlyMethods(['createLambda'])
             ->getMock();
 
         $sdk->expects($this->once())
@@ -91,7 +94,9 @@ class AwsLambdaTest extends AwsTestCase
             },
         ]);
 
-        $this->getConnectionRepository()->add($connection);
+        /** @var ConnectionMemory $repository */
+        $repository = $this->getConnectionRepository();
+        $repository->add($connection);
 
         $action = $this->getActionFactory()->factory(AwsLambdaInvoke::class);
 
